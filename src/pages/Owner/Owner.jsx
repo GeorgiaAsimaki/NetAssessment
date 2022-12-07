@@ -1,29 +1,21 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import Table from '../../component/Table/Table'
+import React from "react";
+import Table from "../../component/Table/Table";
 
-function Owner() {
-  const [id,setId] = useState("Luis")
-  const headers=["ID","FirstName","LastName","DriverLicense"]
-  const navigate = useNavigate()
-  function handleID(event){
-    setId(event.target.value)
-  }
-  function handleAddnewVehicle(event){
-    const url ="/vehicles/"+id;
-    console.log(url);
-    console.log(event);
-    navigate(url)
-  }
+function Owner(props) {
+  const headers = ["ID", "FirstName", "LastName", "DriverLicense"];
+  const url = "/vehicles/";
+  const object = {};
   return (
-    <div>Owner
-      <div >
-        <input type="text" name="user" defaultValue="Luis" onChange={handleID}/>
-        <input type="submit" value="Submit" onClick={handleAddnewVehicle}/>
-      </div>
-      <Table headers={headers}></Table>
+    <div>
+      <h1>Owners</h1>
+      <Table elements={props.elements} setElements={props.setElements}
+        headers={headers}
+        addButton={"Add Vehicles"}
+        url={url}
+        object={object}
+      ></Table>
     </div>
-  )
+  );
 }
 
-export default Owner
+export default Owner;

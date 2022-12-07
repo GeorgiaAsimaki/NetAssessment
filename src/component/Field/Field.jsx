@@ -1,28 +1,36 @@
-import React, { useState } from 'react'
-import TextField from '@mui/material/TextField';
+import React, { useState } from "react";
+import TextField from "@mui/material/TextField";
 
 function Field(props) {
-    const [value,setValue] = useState()
-    function changeTextField(event){
-      let newObject = {...props.object};
-      newObject[props.label]=event.target.value;
-      console.log(props.label)
-      console.log(event.target.value)
-      console.log(newObject)
-      props.setObject(newObject)
+  const [value, setValue] = useState("");
+  React.useEffect(() => {
+    if (Object.keys(props.object).length === 0) {
+      setValue("");
     }
-    if(props.label==="ID"||props.label==="Owner_Id"||props.label==="Vehicle_id"){
-      return
-    }else{
-  return (
-    <TextField required 
-                  id={props.id}
-                  label={props.label}
-                  value={value}
-                  onChange = {changeTextField}
-                />
-  )
-    }
+  }, [props.object]);
+  function changeTextField(event) {
+    let newObject = { ...props.object };
+    newObject[props.label] = event.target.value;
+    setValue(event.target.value);
+    props.setObject(newObject);
+  }
+  if (props.label === "ID") {
+    return;
+  } else if (props.label === "Owner_Id") {
+    return;
+  } else if (props.label === "Vehicle_id") {
+    return;
+  } else {
+    return (
+      <TextField
+        required
+        id={props.id}
+        label={props.label}
+        value={value}
+        onChange={changeTextField}
+      />
+    );
+  }
 }
 
-export default Field
+export default Field;
