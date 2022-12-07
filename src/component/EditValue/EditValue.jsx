@@ -5,40 +5,28 @@ function EditValue(props) {
   const [value, setValue] = useState(props.value);
   function handleEdit(event) {
     setValue(event.target.value);
+    setSelected(true);
   }
-  function handleChange(event) {
+  function handleSave() {
     alert("Send update to database");
+    props.element[props.property] = value;
     setSelected(false);
   }
+  function handleDiscard() {
+    setValue(props.value);
+    setSelected(false);
+  }
+  function handleChange() {
+    setSelected(true);
+  }
   if (!selected) {
-    return (
-      <label
-        onClick={() => {
-          setSelected(true);
-        }}
-      >
-        {value}
-      </label>
-    );
+    return <label onClick={handleChange}>{value}</label>;
   } else {
     return (
       <div>
-        <input
-          value={value}
-          onClick={() => {
-            setSelected(true);
-          }}
-          onChange={handleEdit}
-        />
-        <button onClick={handleChange}>Save</button>
-        <button
-          onClick={() => {
-            setValue(props.value);
-            setSelected(false);
-          }}
-        >
-          Discard
-        </button>
+        <input value={value} onChange={handleEdit} />
+        <button onClick={handleSave}>Save</button>
+        <button onClick={handleDiscard}>Discard</button>
       </div>
     );
   }

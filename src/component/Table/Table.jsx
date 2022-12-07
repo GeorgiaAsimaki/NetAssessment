@@ -8,32 +8,42 @@ import axios from "axios";
 
 function Table(props) {
   const url = "http://localhost:8082/user/users";
-  useEffect(() => {
-    //axios.get(url).then(response =>( setUserData(response.data)))
-  }, []);
-  const [userData] = useState([]);
-  const tableRows = props.elements.map((info) => {
-    return (
-      <tr key={info.ID}>
-        {props.headers.map((header, index) => (
-          <td key={index}>
-            <EditValue value={info[`${header}`]} />
+  // useEffect(() => {
+  //   //axios.get(url).then(response =>( setUserData(response.data)))
+  // }, []);
+  const tableRows = props.elements
+    .filter((element) => {
+      if (element[props.property] === undefined) {
+        return true;
+      }
+      return element[props.property] === props.id;
+    })
+    .map((info) => {
+      return (
+        <tr key={info.ID}>
+          {props.headers.map((header, index) => (
+            <td key={index}>
+              <EditValue
+                value={info[`${header}`]}
+                element={info}
+                property={header}
+              />
+            </td>
+          ))}
+          <td>
+            {props.addButton !== undefined ? (
+              <AddReference
+                value={props.addButton}
+                id={info.ID}
+                url={props.url}
+              />
+            ) : (
+              ""
+            )}
           </td>
-        ))}
-        <td>
-          {props.addButton !== undefined ? (
-            <AddReference
-              value={props.addButton}
-              id={info.ID}
-              url={props.url}
-            />
-          ) : (
-            ""
-          )}
-        </td>
-      </tr>
-    );
-  });
+        </tr>
+      );
+    });
 
   const addRows = (data) => {
     const totalUsers = props.elements.length;

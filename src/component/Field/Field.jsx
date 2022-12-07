@@ -3,11 +3,12 @@ import TextField from "@mui/material/TextField";
 
 function Field(props) {
   const [value, setValue] = useState("");
-  React.useEffect(() => {
+  function clearData() {
     if (Object.keys(props.object).length === 0) {
       setValue("");
     }
-  }, [props.object]);
+  }
+  React.useEffect(clearData, [props.object]);
   function changeTextField(event) {
     let newObject = { ...props.object };
     newObject[props.label] = event.target.value;
