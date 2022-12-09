@@ -19,6 +19,7 @@ function Vehicles(props) {
         object={object}
         id={id}
         property="Owner_Id"
+        service={"vehicle"}
       ></Table>
     </div>
   );

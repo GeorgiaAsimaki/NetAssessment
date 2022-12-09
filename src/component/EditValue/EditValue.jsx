@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 
 function EditValue(props) {
@@ -8,7 +9,8 @@ function EditValue(props) {
     setSelected(true);
   }
   function handleSave() {
-    alert("Send update to database");
+    props.element[props.property] = value;
+    axios.put(props.url,props.element);
     props.element[props.property] = value;
     setSelected(false);
   }

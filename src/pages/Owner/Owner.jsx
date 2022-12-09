@@ -2,7 +2,7 @@ import React from "react";
 import Table from "../../component/Table/Table";
 
 function Owner(props) {
-  const headers = ["ID", "FirstName", "LastName", "DriverLicense"];
+  const headers = ["id", "firstName", "lastName", "driverLicense"];
   const url = "/vehicles/";
   const object = {};
   return (
@@ -13,6 +13,7 @@ function Owner(props) {
         addButton={"Add Vehicles"}
         url={url}
         object={object}
+        service={"owner"}
       ></Table>
     </div>
   );

@@ -16,6 +16,7 @@ function Claims(props) {
         object={object}
         id={id}
         property="Vehicle_id"
+        service={"claim"}
       ></Table>
     </div>
   );

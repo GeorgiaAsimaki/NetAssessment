@@ -1,16 +1,12 @@
 import React from "react";
 import Stack from "@mui/material/Stack";
 import Form from "../Form/Form";
-import { useState, useEffect } from "react";
 import EditValue from "../EditValue/EditValue";
 import AddReference from "../AddReference/AddReference";
-import axios from "axios";
+import axios from "axios"
 
 function Table(props) {
-  const url = "http://localhost:8082/user/users";
-  // useEffect(() => {
-  //   //axios.get(url).then(response =>( setUserData(response.data)))
-  // }, []);
+  const url= "http://localhost:5042/"+props.service;
   const tableRows = props.elements
     .filter((element) => {
       if (element[props.property] === undefined) {
@@ -20,13 +16,14 @@ function Table(props) {
     })
     .map((info) => {
       return (
-        <tr key={info.ID}>
+        <tr key={info.id}>
           {props.headers.map((header, index) => (
             <td key={index}>
               <EditValue
                 value={info[`${header}`]}
                 element={info}
                 property={header}
+                url={url}
               />
             </td>
           ))}
@@ -48,7 +45,7 @@ function Table(props) {
   const addRows = (data) => {
     const totalUsers = props.elements.length;
     data.ID = totalUsers + 1;
-    //axios.post(url,data)
+    axios.post(url,data)
     const updatedUserData = [...props.elements];
     updatedUserData.push(data);
     props.setElements(updatedUserData);
